@@ -1,0 +1,52 @@
+class FileAnalyzer:
+
+    # def __init__(self, directory):
+    #      """ Your docstring should go here for the description of the method."""
+    #     self.directory = directory # NOT mandatory!
+    #     self.files_summary = dict();
+    #     self.analyze_files()
+    #      # summerize the python files data
+
+        
+    def analyze_files(directory1):
+        """ Your docstring should go here for the description of the method."""
+        try:
+            file = os.listdir(directory1)
+        except NotADirectoryError:
+            raise NotADirectoryError
+        else:
+            for f_name in file:
+                if f_name.endswith(".py"):
+                    try:
+                        fp = open(f_name, 'r')
+                    except FileNotFoundError:
+                        raise FileNotFoundError
+                    else:
+                        with fp:
+                            c=0;
+                            ccl=0
+                            cdef=0
+                            charc=0
+                            for line in fp:
+                                
+                                charc = charc +len(line)
+                                c=c+1
+                                if line.startswith('class ') and line.endswith(':'):
+                                    ccl =ccl+1
+                                elif line.startswith('def') and line.endswith('):'):
+                                    cdef=cdef+1
+                            files_summary[f_name] = {"class":ccl,"function":cdef,"line":c,"character":charc}
+                            
+                            
+
+            
+        
+    # def pretty_print(self):
+    #     """ Your docstring should go here for the description of the method."""
+        
+    #     p = PrettyTable(field_names=['Filename','Classes','Functions','Lines','Characters'])
+    #     for k,v in self.files_summary.items():
+    #         p.add_row([k,v['class'],v['function'],v['line'],v['characters']])
+    #     return p
+
+if __name__ == '__main__'
